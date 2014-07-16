@@ -26,29 +26,27 @@ describe Contact do
   end
 
 
-  it "is valid with a first name, last name and email" do
-    contact = Contact.new(
-      firstname: 'Colin',
-      lastname: 'Hart',
-      email: 'test@test.com')
-      expect(contact).to be_valid
-  end
-  it "is invalid without a firstname" do
-    expect(Contact.new(firstname: nil)).to have(1).errors_on(:firstname)
-  end
-  it "is invalid without a lastname" do
-    expect(Contact.new(lastname: nil)).to have(1).errors_on(:firstname)
-  end
-  it "is invalid without an email" do
-    expect(Contact.new(email: nil)).to have(1).errors_on(:email)
-  end
+  # it "is valid with a first name, last name and email" do
+  #   contact = Contact.new(
+  #     firstname: 'Colin',
+  #     lastname: 'Hart',
+  #     email: 'test@test.com')
+  #     expect(contact).to be_valid
+  # end
+  # it "is invalid without a firstname" do
+  #   expect(Contact.new(firstname: nil)).to have(1).errors_on(:firstname)
+  # end
+  # it "is invalid without a lastname" do
+  #   expect(Contact.new(lastname: nil)).to have(1).errors_on(:firstname)
+  # end
+  # it "is invalid without an email" do
+  #   expect(Contact.new(email: nil)).to have(1).errors_on(:email)
+  # end
   it "is invalid with a duplicate email address" do
-    Contact.create(
-      firstname: 'Joe', lastname: 'Tester',
-      email: 'tester@joetest.com')
+    FactoryGirl.create(:contact, email: "colin@colin.com")
     contact = Contact.new(
       firstname: 'Jane', lastname: 'Tester',
-      email: 'tester@joetest.com')
+      email: 'colin@colin.com')
     expect(contact).to have(1).errors_on(:email)
   end
   it "returns a contacts full name as a string" do
