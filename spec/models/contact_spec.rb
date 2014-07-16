@@ -42,6 +42,7 @@ describe Contact do
   # it "is invalid without an email" do
   #   expect(Contact.new(email: nil)).to have(1).errors_on(:email)
   # end
+
   it "is invalid with a duplicate email address" do
     FactoryGirl.create(:contact, email: "colin@colin.com")
     contact = Contact.new(
