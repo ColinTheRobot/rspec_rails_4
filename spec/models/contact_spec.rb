@@ -25,24 +25,6 @@ describe Contact do
     expect(contact.name).to eq "Jane Doe"
   end
 
-
-  # it "is valid with a first name, last name and email" do
-  #   contact = Contact.new(
-  #     firstname: 'Colin',
-  #     lastname: 'Hart',
-  #     email: 'test@test.com')
-  #     expect(contact).to be_valid
-  # end
-  # it "is invalid without a firstname" do
-  #   expect(Contact.new(firstname: nil)).to have(1).errors_on(:firstname)
-  # end
-  # it "is invalid without a lastname" do
-  #   expect(Contact.new(lastname: nil)).to have(1).errors_on(:firstname)
-  # end
-  # it "is invalid without an email" do
-  #   expect(Contact.new(email: nil)).to have(1).errors_on(:email)
-  # end
-
   it "is invalid with a duplicate email address" do
     FactoryGirl.create(:contact, email: "colin@colin.com")
     contact = Contact.new(
@@ -50,15 +32,20 @@ describe Contact do
       email: 'colin@colin.com')
     expect(contact).to have(1).errors_on(:email)
   end
+
   it "returns a contacts full name as a string" do
     contact = Contact.new(firstname: 'Colin', lastname: 'Hart', email: 'colin@colin.com')
     expect(contact.name).to eq 'Colin Hart'
   end
 
+  it "has three phone numbers" do
+    expect(create(:contact).phones.count).to eq 3
+  end
+
   describe "Filter last example by letter" do
     before :each do
       @smith = Contact.create(firstname: "John", lastname: "Smith", email: "jsmith@example.com")
-      @jones = Contact.create(firstname: "Tim", lastname: "Jones", email: "tjones@example.com")
+      @jones = Contact.create(firstname: "Jim", lastname: "Jones", email: "tjones@example.com")
       @johnson = Contact.create(firstname: "John", lastname: "Johnson", email: "jjohnson@example.com")
     end
 
